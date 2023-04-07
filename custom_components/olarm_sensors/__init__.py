@@ -53,7 +53,7 @@ async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry):
                 config_entry, data=data, options=options
             )
 
-    except DictionaryKeyError:
+    except KeyError:
         data = {**config_entry.data}
         options = {**config_entry.options}
         options[CONF_ALARM_CODE] = data[CONF_ALARM_CODE]
@@ -125,7 +125,7 @@ async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry):
                 if name == "":
                     name = f"area_{area+1}"
 
-            except ListIndexError:
+            except IndexError:
                 name = f"area_{area+1}"
 
             name = "".join(name.lower().split(" "))
@@ -237,7 +237,7 @@ async def update_listener(hass, entry):
 
             hass.config_entries.async_update_entry(entry, data=data, options=options)
 
-    except DictionaryKeyError:
+    except KeyError:
         data = {**entry.data}
         options = {**entry.options}
         options[CONF_ALARM_CODE] = data[CONF_ALARM_CODE]
